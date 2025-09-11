@@ -20,18 +20,18 @@ public class SimulationService {
 	
 	public void executarSimulacao(Programa programa, Computador computador) {
 		if(!validarInstalacao(programa, computador)) {
-			System.out.println("Erro na instalacao: ssd insuficiente");
+			System.out.println("Erro na instalacao: SSD insuficiente");
 			return; 
 		}
 		
 		if(!validarExecucao(programa, computador)) {
-			System.out.println("erro na execucao: RAM insuficiente ");
+			System.out.println("Erro na execucao: RAM insuficiente ");
 			return;
 		}
 		
 	System.out.println("Programa executado com sucesso");
 	float tempo = calcularTempoExecucao(programa, computador);
-	System.out.println("execution time: " + tempo + "segundos");
+	System.out.println("Tempo de execucao: " + tempo + " segundos");
 	}
 	
 }
