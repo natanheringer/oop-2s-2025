@@ -11,7 +11,6 @@ public class Computador {
 	
 	/* Constructor using fields */
 	public Computador(Integer memoriaRAM, Integer sSD, Integer nucleos, Float operacoesPorSegundo) {
-		super();
 		this.memoriaRAM = memoriaRAM;
 		SSD = sSD;
 		this.nucleos = nucleos;
