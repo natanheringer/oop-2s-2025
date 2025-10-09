@@ -21,6 +21,6 @@ public class Usuario extends Pessoa {
 		/* implementation of abstract method */
         System.out.println("Nome: " + getNome());
         System.out.println("Email: " + getEmail());
-        System.out.println("Matrícula: " + matricula);
+        System.out.println("Matrícula: " + getMatricula());
 	}
 }

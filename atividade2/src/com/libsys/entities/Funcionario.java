@@ -19,7 +19,9 @@ public class Funcionario extends Pessoa{
 	@Override
 	public void exibirInfo() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Nome: " + getNome());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Cargo: " + getCargo());
 	}
 	
 	
