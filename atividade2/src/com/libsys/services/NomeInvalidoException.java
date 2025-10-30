@@ -1,0 +1,9 @@
+package com.libsys.services;
+
+@SuppressWarnings("serial")
+public class NomeInvalidoException extends Exception {
+	
+	public NomeInvalidoException() {
+		super("Nome Invalido");
+	}
+}
