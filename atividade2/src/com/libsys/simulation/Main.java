@@ -1,26 +1,36 @@
-package com.libsys.simulation;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.libsys.dao.PessoaDAO;
 import com.libsys.entities.Funcionario;
 import com.libsys.entities.Pessoa;
 import com.libsys.entities.Usuario;
-import com.libsys.services.EmailInvalidoException;
 import com.libsys.services.Emprestimo;
 import com.libsys.services.Livro;
 import com.libsys.services.Material;
-import com.libsys.services.NomeInvalidoException;
 import com.libsys.services.Revista;
 
+import model.Colecao;
+import model.Instituicao;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
-        /* Cria uma lista vazia, um array */
-        ArrayList<Pessoa> pessoas = new ArrayList<>();
+
+        PessoaDAO pessoaDAO = new PessoaDAO();
+
+        ArrayList<Pessoa> pessoas = pessoaDAO.getTodasPessoas();
         ArrayList<Material> materiais = new ArrayList<>();
         ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+
+
+        // Exemplo Fixo
+        Instituicao UCB = new Instituicao("UCB", "123456", "Brasilia-DF");
+        Colecao c1 = new Colecao("Pedro", 10);
+        Emprestimo e1 = new Emprestimo(UCB, c1, "20/10/2025", "21/10/2025");
+        emprestimos.add(e1);
+
 
         int opcao;
 
@@ -48,17 +58,10 @@ public class Main {
                     System.out.print("Matrícula: ");
                     int matricula = sc.nextInt();
                     sc.nextLine();
-                    try {
-                    pessoas.add(new Usuario(nomeU, emailU, matricula));
-                    } catch (NomeInvalidoException e){
-                    	System.out.println("Nome invalido");
-                    } catch (EmailInvalidoException e) {
-                    	System.out.println("E-mail invalido");
-                    } catch (Exception e){
-                    	System.out.println("Algo deu errado");
-                    }
-                    
-                    
+                    Usuario u1 = new Usuario(nomeU, emailU, matricula);
+                    pessoas.add(u1);
+                    pessoaDAO.salvarPessoa(u1);
+                    System.out.println("Usuário cadastrado com sucesso!\n");
                     break;
 
                 case 2:
@@ -68,7 +71,9 @@ public class Main {
                     String emailF = sc.nextLine();
                     System.out.print("Cargo: ");
                     String cargo = sc.nextLine();
-                    pessoas.add(new Funcionario(nomeF, emailF, cargo));
+                    Funcionario f1 = new Funcionario(nomeF, emailF, cargo);
+                    pessoas.add(f1);
+                    pessoaDAO.salvarPessoa(f1);
                     System.out.println("Funcionário cadastrado com sucesso!\n");
                     break;
 
@@ -135,19 +140,11 @@ public class Main {
                     String dataE = sc.nextLine();
                     System.out.print("Data de devolução: ");
                     String dataD = sc.nextLine();
-                    
-                    try {
-                    	/* acesso dos elementos atraves do get */
-                        emprestimos.add(new Emprestimo(pessoas.get(idxUsuario),
-                                                       materiais.get(idxMaterial),
-                                                       dataE, dataD));
-                        System.out.println("Empréstimo cadastrado!\n");
-                    }catch (Exception e) {
-                    	System.out.println("Algo deu errado, tente novamente");
-                    	e.printStackTrace();
-                    }
-                    
-                    
+
+                    emprestimos.add(new Emprestimo(pessoas.get(idxUsuario),
+                                                   materiais.get(idxMaterial),
+                                                   dataE, dataD));
+                    System.out.println("Empréstimo cadastrado!\n");
                     break;
 
                 case 8:
